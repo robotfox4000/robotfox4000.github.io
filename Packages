@@ -1,0 +1,16 @@
+Package: com.robotfox4000.rfoxobscura
+Version: 1.0.0
+Architecture: iphoneos-arm
+Maintainer: Robotfox4000
+Installed-Size: 160
+Depends: mobilesubstrate
+Filename: debs/com.robotfox4000.rfoxobscura_1.0.0_iphoneos-arm.deb
+Size: 18448
+MD5sum: 077e63e540386693e73d083d59d2a8af
+SHA1: abb2c4bfcc1f455afa3bf69232c362778afd037e
+SHA256: 9d446e0140e797d0a791b9e513abd76bf74c2677bae52b018f1c49ee651507d0
+Section: Applications
+Description: A native bridge for legacy app preservation.
+Author: Robotfox4000
+Name: RFoxObscura
+
