@@ -1,0 +1,9 @@
+Package: com.robotfox4000.rfoxobscura
+Name: RFoxObscura
+Depends: mobilesubstrate
+Version: 1.0.0
+Architecture: iphoneos-arm
+Description: A native bridge for legacy app preservation.
+Maintainer: Robotfox4000
+Author: Robotfox4000
+Section: Applications

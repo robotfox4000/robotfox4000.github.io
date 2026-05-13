@@ -1,0 +1,12 @@
+# Theos build folders
+.theos/
+obj/
+
+# Compiled packages and repo indexes
+packages/
+Packages
+Packages.bz2
+*.deb
+
+# System junk
+.DS_Store
