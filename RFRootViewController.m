@@ -6,52 +6,57 @@
 
 - (void)loadView {
     [super loadView];
-    self.title = @"RFoxObscura";
+    
+    UIButton *aboutButton = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+    [aboutButton setTitle:@"About" forState:UIControlStateNormal];
+    
+    aboutButton.frame = CGRectMake(0, 0, 80, 30);
+    [aboutButton addTarget:self action:@selector(showAbout) forControlEvents:UIControlEventTouchUpInside];
+
+    self.navigationItem.titleView = aboutButton;
+
     self.view.backgroundColor = [UIColor whiteColor];
 
-    // Use full view bounds
     _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
     _webView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _webView.scalesPageToFit = YES;
     _webView.delegate = self;
     [self.view addSubview:_webView];
 
-    // Toolbar
-    UIToolbar *toolbar = [[UIToolbar alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height - 44, self.view.bounds.size.width, 44)];
-    toolbar.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-
     UIBarButtonItem *back = [[UIBarButtonItem alloc] initWithTitle:@"<" style:UIBarButtonItemStyleBordered target:_webView action:@selector(goBack)];
     UIBarButtonItem *fwd = [[UIBarButtonItem alloc] initWithTitle:@">" style:UIBarButtonItemStyleBordered target:_webView action:@selector(goForward)];
+    self.navigationItem.leftBarButtonItems = @[back, fwd];
+
     UIBarButtonItem *home = [[UIBarButtonItem alloc] initWithTitle:@"Home" style:UIBarButtonItemStyleBordered target:self action:@selector(goHome)];
-    UIBarButtonItem *about = [[UIBarButtonItem alloc] initWithTitle:@"About" style:UIBarButtonItemStyleBordered target:self action:@selector(showAbout)];
-    UIBarButtonItem *flex = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace target:nil action:nil];
+    UIBarButtonItem *refresh = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh target:_webView action:@selector(reload)];
+    self.navigationItem.rightBarButtonItems = @[refresh, home];
 
-    [toolbar setItems:@[back, flex, fwd, flex, home, flex, about]];
-    [self.view addSubview:toolbar];
-
-    [back release]; [fwd release]; [home release]; [about release]; [flex release]; [toolbar release];
+    [back release]; [fwd release]; [home release]; [refresh release];
 
     [self goHome];
 }
 
 - (void)goHome {
-    // Ensure we use HTTP as legacy iOS often struggles with modern HTTPS/SSL certificates
     NSURL *url = [NSURL URLWithString:@"http://iphoneosobscura.litten.ca"];
     [_webView loadRequest:[NSURLRequest requestWithURL:url]];
 }
 
 - (void)showAbout {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About" 
-                                                    message:@"RFoxObscura v1.0.0\nDeveloped by Robotfox4000\nCredits: iPhoneOS Obscura / Litten" 
+    NSString *message = @"RFoxObscura v1.1.0\n"
+                        "Developed by Robotfox4000\n\n"
+                        "--- Changelog ---\n"
+                        "- Removed app name on top bar\n"
+                        "- Moved about to top bar \n"
+                        "- Moved nav buttons to top bar \n\n"
+                         "Credits: iPhoneOS Obscura / Litten";
+
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"About & Changelog" 
+                                                    message:message 
                                                    delegate:nil 
                                           cancelButtonTitle:@"Dismiss" 
                                           otherButtonTitles:nil];
     [alert show];
     [alert release];
-}
-
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    return YES; 
 }
 
 - (void)dealloc {

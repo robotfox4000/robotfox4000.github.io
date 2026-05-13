@@ -7,8 +7,6 @@ APPLICATION_NAME = RFoxObscura
 RFoxObscura_FILES = main.m RFAppDelegate.m RFRootViewController.m
 RFoxObscura_FRAMEWORKS = UIKit CoreGraphics
 RFoxObscura_RESOURCE_FILES = Icon.png Info.plist
-
-# This is the line that fixes the "autorelease is unavailable" errors:
 RFoxObscura_CFLAGS = -fno-objc-arc
 
 include $(THEOS_MAKE_PATH)/application.mk
